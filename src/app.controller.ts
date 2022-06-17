@@ -2,14 +2,14 @@ import { Controller, Post, Req, Res, UploadedFile } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ImageResizeService } from './helper/image-resize.helper';
 import { createWriteStream, unlinkSync } from 'fs';
-import { UploadService } from './upload/upload.service';
+import { FileUploadService } from './file-upload/file-upload.service';
 
 @Controller()
 export class AppController {
   constructor(
     private readonly appService: AppService,
     private readonly imageResizeService: ImageResizeService,
-    private readonly uploadService: UploadService,
+    private readonly fileUploadService: FileUploadService,
   ) {}
 
   @Post(':filename')
@@ -31,7 +31,8 @@ export class AppController {
       switch (type) {
         case 'image':
           const aa = await this.imageResizeService.resizeImage(asa.path);
-          result = await this.uploadService.uploadMultiple(aa, fileName);
+
+          result = await this.fileUploadService.uploadMultiple(aa, fileName);
 
           //  upload multiple to s3
 
@@ -40,7 +41,7 @@ export class AppController {
         default:
           const fileBuffer = Buffer.from(asa.path, 'base64');
 
-          result = await this.uploadService.uploadOne(fileBuffer, fileName);
+          result = await this.fileUploadService.uploadOne(fileBuffer, fileName);
 
         //  upload one to s3
       }

@@ -5,13 +5,13 @@ import { S3 } from 'aws-sdk';
 import { v4 as uuid } from 'uuid';
 
 @Injectable()
-export class UploadService {
+export class FileUploadService {
   constructor(private readonly configService: ConfigService) {}
   static s3 = new S3();
 
   async uploadOne(dataBuffer: Buffer, filename: string) {
     try {
-      const uploadResult = await UploadService.s3
+      const uploadResult = await FileUploadService.s3
         .upload({
           Bucket: this.configService.get('AWS_PUBLIC_BUCKET_NAME'),
           Body: dataBuffer,
@@ -35,7 +35,7 @@ export class UploadService {
       });
 
       const result = await Promise.all(
-        params.map((param) => UploadService.s3.upload(param).promise()),
+        params.map((param) => FileUploadService.s3.upload(param).promise()),
       );
 
       return result;

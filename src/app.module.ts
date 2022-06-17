@@ -5,11 +5,12 @@ import { AppService } from './app.service';
 import { ImageResizeService } from './helper/image-resize.helper';
 import { RequestMiddleware } from './middleware/request.middleware';
 import * as Joi from 'joi';
-import { UploadModule } from './upload/upload.module';
+import { FileUploadModule } from './file-upload/file-upload.module';
+import { UploadFileModule } from './upload-file/upload-file.module';
 
 @Module({
   imports: [
-    UploadModule,
+    FileUploadModule,
     ConfigModule.forRoot({
       validationSchema: Joi.object({
         AWS_REGION: Joi.string().required(),
@@ -19,6 +20,7 @@ import { UploadModule } from './upload/upload.module';
         PORT: Joi.number().required(),
       }),
     }),
+    UploadFileModule,
   ],
   controllers: [AppController],
   providers: [AppService, ImageResizeService],
