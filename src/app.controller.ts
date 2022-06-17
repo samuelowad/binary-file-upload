@@ -24,6 +24,9 @@ export class AppController {
 
     const fileName = `${file}.${ext}`;
 
+    const t0 = performance.now();
+    // doSomething();
+
     const asa = await req.pipe(createWriteStream(path));
     await asa.on('finish', async () => {
       let result;
@@ -49,6 +52,9 @@ export class AppController {
         //  upload file to s3
       }
       unlinkSync(path);
+
+      const t1 = performance.now();
+      console.log(`Call to doSomething took ${t1 - t0} milliseconds.`);
 
       res.send(result);
     });

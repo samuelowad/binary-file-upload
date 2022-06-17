@@ -3,6 +3,8 @@ import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { config } from 'aws-sdk';
 
+import { AppClusterService } from './app-cluster.service';
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
@@ -15,4 +17,5 @@ async function bootstrap() {
 
   await app.listen(configService.get('PORT'));
 }
-bootstrap();
+AppClusterService.clusterize(bootstrap);
+// bootstrap();
