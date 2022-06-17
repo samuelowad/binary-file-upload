@@ -10,7 +10,6 @@ import { RequestSize } from 'src/enums/request-size.enum';
 @Injectable()
 export class RequestMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
-    console.log(req.headers);
     const requestMimeType = req.headers['content-type'];
 
     const equals =
@@ -18,10 +17,12 @@ export class RequestMiddleware implements NestMiddleware {
       MimeTypes.ImagePng == requestMimeType ||
       MimeTypes.Pdf == requestMimeType;
 
+    // check for supported file types
     if (!equals) {
       throw new BadRequestException('Unsupported file type');
     }
 
+    // check for size of uploaded file
     if (Number(req.headers['content-length']) > RequestSize.maxSize) {
       throw new BadRequestException('File too large');
     }

@@ -9,7 +9,7 @@ export class FileUploadService {
   constructor(private readonly configService: ConfigService) {}
   static s3 = new S3();
 
-  async uploadOne(dataBuffer: Buffer, filename: string) {
+  async uploadFile(dataBuffer: Buffer, filename: string) {
     try {
       const uploadResult = await FileUploadService.s3
         .upload({
@@ -24,7 +24,7 @@ export class FileUploadService {
     }
   }
 
-  async uploadMultiple(dataBuffer: Buffer[], filename: string) {
+  async uploadImages(dataBuffer: Buffer[], filename: string) {
     try {
       const params = dataBuffer.map((data, index) => {
         return {

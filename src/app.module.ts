@@ -6,7 +6,6 @@ import { ImageResizeHelperService } from './helper/image-resize-helper.service';
 import { RequestMiddleware } from './middleware/request.middleware';
 import * as Joi from 'joi';
 import { FileUploadModule } from './file-upload/file-upload.module';
-import { UploadFileModule } from './upload-file/upload-file.module';
 
 @Module({
   imports: [
@@ -20,7 +19,6 @@ import { UploadFileModule } from './upload-file/upload-file.module';
         PORT: Joi.number().required(),
       }),
     }),
-    UploadFileModule,
   ],
   controllers: [AppController],
   providers: [AppService, ImageResizeHelperService],

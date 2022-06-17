@@ -32,18 +32,21 @@ export class AppController {
         case 'image':
           const aa = await this.imageResizeHelperService.resizeImage(asa.path);
 
-          result = await this.fileUploadService.uploadMultiple(aa, fileName);
+          result = await this.fileUploadService.uploadImages(aa, fileName);
 
-          //  upload multiple to s3
+          //  upload image to s3
 
           break;
 
         default:
           const fileBuffer = Buffer.from(asa.path, 'base64');
 
-          result = await this.fileUploadService.uploadOne(fileBuffer, fileName);
+          result = await this.fileUploadService.uploadFile(
+            fileBuffer,
+            fileName,
+          );
 
-        //  upload one to s3
+        //  upload file to s3
       }
       unlinkSync(path);
 
