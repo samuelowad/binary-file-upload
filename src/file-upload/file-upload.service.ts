@@ -15,7 +15,7 @@ export class FileUploadService {
         .upload({
           Bucket: this.configService.get('AWS_PUBLIC_BUCKET_NAME'),
           Body: dataBuffer,
-          Key: `${uuid()}-${filename}`,
+          Key: `./pdf/${uuid()}-${filename}`,
         })
         .promise();
       return uploadResult;
@@ -30,7 +30,7 @@ export class FileUploadService {
         return {
           Bucket: this.configService.get('AWS_PUBLIC_BUCKET_NAME'),
           Body: data,
-          Key: `${uuid()}-${index}-${filename}`,
+          Key: `./images/${uuid()}-${index}-${filename}`,
         };
       });
 

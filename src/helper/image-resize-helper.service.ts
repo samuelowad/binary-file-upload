@@ -2,7 +2,7 @@ import { BadRequestException } from '@nestjs/common';
 import * as sharp from 'sharp';
 import { Large, Medium, Thumbnail } from 'src/enums/image-resize-types.enum';
 
-export class ImageResizeService {
+export class ImageResizeHelperService {
   async resizeImage(imagePath: string): Promise<Buffer[]> {
     try {
       const imageBuffer = await sharp(imagePath).toBuffer();

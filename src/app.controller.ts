@@ -1,6 +1,6 @@
 import { Controller, Post, Req, Res, UploadedFile } from '@nestjs/common';
 import { AppService } from './app.service';
-import { ImageResizeService } from './helper/image-resize.helper';
+import { ImageResizeHelperService } from './helper/image-resize-helper.service';
 import { createWriteStream, unlinkSync } from 'fs';
 import { FileUploadService } from './file-upload/file-upload.service';
 
@@ -8,7 +8,7 @@ import { FileUploadService } from './file-upload/file-upload.service';
 export class AppController {
   constructor(
     private readonly appService: AppService,
-    private readonly imageResizeService: ImageResizeService,
+    private readonly imageResizeHelperService: ImageResizeHelperService,
     private readonly fileUploadService: FileUploadService,
   ) {}
 
@@ -30,7 +30,7 @@ export class AppController {
 
       switch (type) {
         case 'image':
-          const aa = await this.imageResizeService.resizeImage(asa.path);
+          const aa = await this.imageResizeHelperService.resizeImage(asa.path);
 
           result = await this.fileUploadService.uploadMultiple(aa, fileName);
 

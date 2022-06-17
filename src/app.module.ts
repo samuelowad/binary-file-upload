@@ -2,7 +2,7 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ImageResizeService } from './helper/image-resize.helper';
+import { ImageResizeHelperService } from './helper/image-resize-helper.service';
 import { RequestMiddleware } from './middleware/request.middleware';
 import * as Joi from 'joi';
 import { FileUploadModule } from './file-upload/file-upload.module';
@@ -23,7 +23,7 @@ import { UploadFileModule } from './upload-file/upload-file.module';
     UploadFileModule,
   ],
   controllers: [AppController],
-  providers: [AppService, ImageResizeService],
+  providers: [AppService, ImageResizeHelperService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
